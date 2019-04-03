@@ -4,6 +4,8 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
+import 'data_types.dart';
+
 class DeviceList extends StatefulWidget {
   @override
   _DeviceListState createState() => _DeviceListState();
@@ -18,6 +20,8 @@ class _DeviceListState extends State<DeviceList> {
 
   var serviceUUID = Guid("0000fff0-0000-1000-8000-00805f9b34fb");
   var characteristicUUID = Guid("0000fff4-0000-1000-8000-00805f9b34fb");
+
+  var logData = new List<LogData>();
 
   @override
   initState() {
@@ -87,6 +91,7 @@ class _DeviceListState extends State<DeviceList> {
     await selectedDevice.setNotifyValue(char, true);
     selectedDevice.onValueChanged(char).listen((value) {
       print(new String.fromCharCodes(value));
+      logData.add(LogData(0, 0, 0));
     });
   }
 
